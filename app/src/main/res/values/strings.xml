@@ -6,4 +6,6 @@
     <string name="about">About</string>
     <string name="quotations">Quotations</string>
     <string name="favourites">Favourites</string>
+    <string name="about_info">QuatationShake by \n\nHarkirat Singh\n\nhsingh@upv.edu.es\n\nDeveloped for DADM 2024</string>
+    <string name="developer">Imagen de un desarrollador</string>
 </resources>
