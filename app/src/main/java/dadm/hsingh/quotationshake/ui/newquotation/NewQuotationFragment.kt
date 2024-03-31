@@ -2,6 +2,7 @@ package dadm.hsingh.quotationshake.ui.newquotation
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentNewQuotationBinding
+import dadm.hsingh.quotationshake.domain.model.Quotation
 import kotlinx.coroutines.launch
 
 class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
@@ -29,6 +31,10 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
                 }
             }
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getNewQuotation()
+            updateQuotation(viewModel.quotation.value)
+        }
     }
 
     private fun updateWelcomeMessage(userName: String) {
@@ -39,6 +45,17 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
         }
         binding.welcomeTextView.text = greetingMessage
     }
+
+    private fun updateQuotation(quotation: Quotation?) {
+        if (quotation != null) {
+            binding.welcomeTextView.isVisible = false
+            binding.quoteTextView.text = quotation.text
+            binding.authorTextView.text = quotation.author.ifEmpty { getString(R.string.anonymous) }
+        }
+
+        binding.swipeRefreshLayout.isRefreshing = viewModel.showIcon.value
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
