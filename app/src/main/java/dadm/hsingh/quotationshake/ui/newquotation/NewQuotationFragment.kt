@@ -87,6 +87,7 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return if (menuItem.itemId == R.id.refreshItem) {
             viewModel.getNewQuotation()
+            updateQuotation(viewModel.quotation.value)
             true
         } else {
             false
