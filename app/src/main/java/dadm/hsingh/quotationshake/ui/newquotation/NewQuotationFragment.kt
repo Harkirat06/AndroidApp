@@ -34,12 +34,24 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.showFavouriteIcon.collect { favouriteIcon ->
+                    binding.floatingActionButton.isVisible = favouriteIcon
+                }
+            }
+        }
         requireActivity().addMenuProvider(this,
             viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getNewQuotation()
             updateQuotation(viewModel.quotation.value)
+        }
+
+        binding.floatingActionButton.setOnClickListener{
+            viewModel.addToFavourites()
         }
     }
 

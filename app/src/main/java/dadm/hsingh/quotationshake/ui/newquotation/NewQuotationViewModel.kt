@@ -18,6 +18,9 @@ class NewQuotationViewModel : ViewModel() {
     private val _showIcon = MutableStateFlow<Boolean>(false)
     val showIcon = _showIcon.asStateFlow()
 
+    private val _showFavouriteIcon = MutableStateFlow<Boolean>(false)
+    val showFavouriteIcon = _showFavouriteIcon.asStateFlow()
+
     private fun getUserName(): String {
         return setOf("Alice", "Bob", "Charlie", "David", "Emma", "").random()
     }
@@ -37,5 +40,15 @@ class NewQuotationViewModel : ViewModel() {
         _showIcon.update {
             false
         }
+        _showFavouriteIcon.update {
+            true
+        }
+    }
+
+    public fun addToFavourites(){
+        _showFavouriteIcon.update {
+            false
+        }
     }
 }
+
