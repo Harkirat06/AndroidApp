@@ -1,20 +1,23 @@
 package dadm.hsingh.quotationshake.ui.newquotation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentNewQuotationBinding
 import dadm.hsingh.quotationshake.domain.model.Quotation
 import kotlinx.coroutines.launch
 
-class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
+class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProvider {
     private var _binding: FragmentNewQuotationBinding? = null
     private val binding get() = _binding!!
 
@@ -31,6 +34,9 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
                 }
             }
         }
+        requireActivity().addMenuProvider(this,
+            viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getNewQuotation()
             updateQuotation(viewModel.quotation.value)
@@ -60,6 +66,20 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation)  {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_about, menu)
+        menuInflater.inflate(R.menu.menu_new_quotation, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return if (menuItem.itemId == R.id.refreshItem) {
+            viewModel.getNewQuotation()
+            true
+        } else {
+            false
+        }
     }
 }
 

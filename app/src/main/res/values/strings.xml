@@ -11,4 +11,5 @@
     <string name="add_favourite_button">Boton para añadir a los favoritos</string>
     <string name="greetings">Hello %1s!,\n\nRefresh to get a new quotation\n\n(swipe down or options menu)</string>
     <string name="anonymous">Anonymous</string>
+    <string name="refresh">Refresh</string>
 </resources>
