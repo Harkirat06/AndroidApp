@@ -12,4 +12,10 @@
     <string name="greetings">Hello %1s!,\n\nRefresh to get a new quotation\n\n(swipe down or options menu)</string>
     <string name="anonymous">Anonymous</string>
     <string name="refresh">Refresh</string>
+    <string name="delete_all_dialog_title">Delete all favourite quotations</string>
+    <string name="delete_all_dialog_message">Do you really want to delete all your quotations?</string>
+    <string name="delete_all_dialog_positive_button">Yes</string>
+    <string name="delete_all_dialog_negative_button">No</string>
+    <string name="delete_all_dialog">Delete All Dialog</string>
+    <string name="delete_all_quotation">Delete all quotation</string>
 </resources>
