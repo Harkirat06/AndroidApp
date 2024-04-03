@@ -1,9 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorContainer">@color/md_theme_tertiaryContainer</item>
+        <item name="colorOnContainer">@color/md_theme_onTertiaryContainer</item>
+    </style>
+    <style name="Style.App.FloatingActionButton"
+        parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.App.FloatingActionButton
+        </item>
+    </style>
     <style name="Base.Theme.QuotationShake" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="floatingActionButtonStyle">
+            @style/Style.App.FloatingActionButton
+        </item>
     </style>
 
-    <style name="Theme.QuotationShake" parent="Base.Theme.QuotationShake" />
 </resources>
