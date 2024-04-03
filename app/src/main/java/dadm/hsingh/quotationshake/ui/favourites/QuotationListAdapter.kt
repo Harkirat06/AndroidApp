@@ -17,9 +17,16 @@ object QuotationDiff : DiffUtil.ItemCallback<Quotation>() {
         return oldItem == newItem
     }
 }
-class QuotationListAdapter : ListAdapter<Quotation, QuotationListAdapter.ViewHolder>(QuotationDiff) {
 
-    class ViewHolder(private val binding: QuotationItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class QuotationListAdapter(private val onItemClick: (String) -> Unit) : ListAdapter<Quotation, QuotationListAdapter.ViewHolder>(QuotationDiff) {
+
+    inner class ViewHolder(private val binding: QuotationItemBinding, onItemClick: (String) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                onItemClick(binding.authorTextView.text.toString())
+            }
+        }
+
         fun bind(quotation: Quotation) {
             binding.quoteTextView.text = quotation.text
             binding.authorTextView.text = quotation.author
@@ -28,7 +35,7 @@ class QuotationListAdapter : ListAdapter<Quotation, QuotationListAdapter.ViewHol
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = QuotationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

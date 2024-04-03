@@ -27,11 +27,15 @@ class FavouritesViewModel : ViewModel() {
     }
 
     private fun getFavoriteQuotations(): List<Quotation> {
-        return (1..20).map { Quotation(it.toString(), "Cita aleatoria número $it", "Autor aleatorio $it" )}
+        val quotations = mutableListOf<Quotation>()
+        quotations.add(Quotation("19", "La imaginación es más importante que el conocimiento.", "Albert Einstein"))
+        quotations.add(Quotation("20", "Cita anónima", "Anonymous"))
+        quotations.addAll((1..18).map { Quotation(it.toString(), "Cita aleatoria número $it", "Autor aleatorio $it") })
+        return quotations
     }
     fun deleteAllQuotations(){
         _favoriteQuotations.update{
-            emptyList<Quotation>()
+            emptyList()
         }
     }
     fun deleteQuotationAtPosition(position: Int) {

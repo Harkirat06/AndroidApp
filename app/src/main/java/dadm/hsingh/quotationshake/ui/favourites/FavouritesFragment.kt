@@ -1,5 +1,8 @@
 package dadm.hsingh.quotationshake.ui.favourites
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentFavouritesBinding
 import kotlinx.coroutines.launch
@@ -56,7 +60,6 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider 
         ItemTouchHelper(simpleCallback)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFavouritesBinding.bind(view)
@@ -69,7 +72,28 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider 
     }
 
     private fun setupRecyclerView() {
-        adapter = QuotationListAdapter()
+        adapter = QuotationListAdapter { author ->
+            if (author == "Anonymous") {
+                Snackbar.make(
+                    requireView(),
+                    "Cannot show information for Anonymous authors",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            } else {
+                try {
+                    val url = "https://en.wikipedia.org/wiki/Special:Search?search=$author"
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(url)
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    Snackbar.make(
+                        requireView(),
+                        "No application can handle this action",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
         binding.recyclerViewFavourites.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewFavourites.adapter = adapter
     }
