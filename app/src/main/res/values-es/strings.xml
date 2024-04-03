@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QuotationShake</string>
+    <string name="get_a_new_quotation">Obtener nueva cita</string>
+    <string name="favourite_quotations">Citas favoritas</string>
+    <string name="settings">Ajustes</string>
+    <string name="about">Acerca de</string>
+    <string name="quotations">Citas</string>
+    <string name="favourites">Favoritos</string>
+    <string name="about_info">QuatationShake por\n\nHarkirat Singh\n\nhsingh@upv.edu.es\n\nDesarrollado para DADM 2024</string>
+    <string name="developer">Imagen de un desarrollador</string>
+    <string name="add_favourite_button">Boton para añadir cita favorita</string>
+    <string name="greetings">Hola %1s!,\n\nRecarga para una nueva cita\n\n(desliza hacia bajo o opcion del menu)</string>
+    <string name="anonymous">Anonimo</string>
+    <string name="refresh">Recarga</string>
+    <string name="delete_all_dialog_title">Eliminar todas las citas</string>
+    <string name="delete_all_dialog_message">Estas seguro de eliminar todas tus citas?</string>
+    <string name="delete_all_dialog_positive_button">Si</string>
+    <string name="delete_all_dialog_negative_button">No</string>
+    <string name="delete_all_dialog">Dialogo de eliminicacion de todas las citas</string>
+    <string name="delete_all_quotation">Elimina todas las citas</string>
+</resources>
