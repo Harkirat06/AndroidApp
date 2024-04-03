@@ -29,9 +29,16 @@ class FavouritesViewModel : ViewModel() {
     private fun getFavoriteQuotations(): List<Quotation> {
         return (1..20).map { Quotation(it.toString(), "Cita aleatoria número $it", "Autor aleatorio $it" )}
     }
-    public fun deleteAllQuotations(){
+    fun deleteAllQuotations(){
         _favoriteQuotations.update{
             emptyList<Quotation>()
+        }
+    }
+    fun deleteQuotationAtPosition(position: Int) {
+        val currentQuotations = _favoriteQuotations.value.toMutableList()
+        val newList = currentQuotations.minus(currentQuotations.elementAt(position))
+        _favoriteQuotations.update {
+            newList
         }
     }
 }

@@ -6,15 +6,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentFavouritesBinding
 import kotlinx.coroutines.launch
@@ -27,6 +27,35 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider 
 
     private lateinit var adapter: QuotationListAdapter
 
+    private val itemTouchHelper by lazy {
+        val simpleCallback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.END
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun isLongPressDragEnabled(): Boolean {
+                return false
+            }
+
+            override fun isItemViewSwipeEnabled(): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                viewModel.deleteQuotationAtPosition(position)
+            }
+        }
+        ItemTouchHelper(simpleCallback)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +65,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider 
         observeViewModel()
         requireActivity().addMenuProvider(this,
             viewLifecycleOwner, Lifecycle.State.RESUMED)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerViewFavourites)
     }
 
     private fun setupRecyclerView() {
@@ -82,7 +112,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider 
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
         val deleteAllItem = menu.findItem(R.id.deleteAllDialogItem)
-        deleteAllItem.isVisible = viewModel.isDeleteAllMenuVisible.value ?: false
+        deleteAllItem.isVisible = viewModel.isDeleteAllMenuVisible.value
     }
 
 }
