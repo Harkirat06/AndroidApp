@@ -22,4 +22,5 @@
     <string name="error_network">Ha ocurrido un error de red.</string>
     <string name="error_unknown">Ha ocurrido un error desconocido.</string>
     <string name="error_timeout">Ha ocurrido un error de tiempo de respuesta.</string>
+    <string name="internet_connection_is_not_available">No hay coneccion de internet disponible.</string>
 </resources>

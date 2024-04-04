@@ -1,12 +1,18 @@
 package dadm.hsingh.quotationshake.data.newquotation
 
 import dadm.hsingh.quotationshake.domain.model.Quotation
+import dadm.hsingh.quotationshake.utils.NoInternetException
 import javax.inject.Inject
 
 class NewQuotationRepositoryImpl @Inject constructor(
-    private val dataSource: NewQuotationDataSource
+    private val dataSource: NewQuotationDataSource,
+    private val connectivityChecker: ConnectivityChecker
 ) : NewQuotationRepository {
     override suspend fun getNewQuotation(): Result<Quotation> {
-        return dataSource.getQuotation()
+        return if (connectivityChecker.isConnectionAvailable()) {
+            dataSource.getQuotation()
+        } else {
+            Result.failure(NoInternetException())
+        }
     }
 }

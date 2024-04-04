@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentNewQuotationBinding
 import dadm.hsingh.quotationshake.domain.model.Quotation
+import dadm.hsingh.quotationshake.utils.NoInternetException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeoutException
@@ -56,6 +57,7 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
                 viewModel.error.collect { error ->
                     if(error != null) {
                         val message = when (error) {
+                            is NoInternetException -> getString(R.string.internet_connection_is_not_available)
                             is NetworkException -> getString(R.string.error_network)
                             is TimeoutException -> getString(R.string.error_timeout)
                             else -> getString(R.string.error_unknown)
