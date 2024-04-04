@@ -44,6 +44,12 @@ class NewQuotationViewModel @Inject constructor(
                 _error.value = throwable
             }
         )
+        _showIcon.update {
+            false
+        }
+        _showFavouriteIcon.update {
+            true
+        }
     }
 
     fun addToFavourites(){
