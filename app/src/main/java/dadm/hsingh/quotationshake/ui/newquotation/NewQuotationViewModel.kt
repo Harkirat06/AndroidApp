@@ -5,19 +5,27 @@ import androidx.lifecycle.viewModelScope
 import dadm.hsingh.quotationshake.data.newquotation.NewQuotationRepository
 import dadm.hsingh.quotationshake.domain.model.Quotation
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import dadm.hsingh.quotationshake.data.settings.SettingsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class NewQuotationViewModel @Inject constructor(
-    private val repository: NewQuotationRepository
+    private val repository: NewQuotationRepository,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    private val _userName = MutableStateFlow(getUserName())
-    val userNameFlow = _userName.asStateFlow()
+    val userNameFlow: StateFlow<String> = settingsRepository.getUserName().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = ""
+    )
 
     private val _quotation = MutableStateFlow<Quotation?>(null)
     val quotation = _quotation.asStateFlow()
@@ -30,10 +38,6 @@ class NewQuotationViewModel @Inject constructor(
 
     private val _error = MutableStateFlow<Throwable?>(null)
     val error = _error.asStateFlow()
-
-    private fun getUserName(): String {
-        return setOf("Alice", "Bob", "Charlie", "David", "Emma", "").random()
-    }
 
     fun getNewQuotation() = viewModelScope.launch {
         repository.getNewQuotation().fold(
