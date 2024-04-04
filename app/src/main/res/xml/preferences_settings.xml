@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:key="username"
+        android:title="User Name"
+        android:hint="Write your user name"
+        app:useSimpleSummaryProvider="true" />
+
+    <ListPreference
+        android:key="language"
+        android:title="Language"
+        android:defaultValue="en"
+        app:useSimpleSummaryProvider="true"
+        android:entries="@array/languages"
+        android:entryValues="@array/language_codes" />
+
+</androidx.preference.PreferenceScreen>
