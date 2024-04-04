@@ -1,10 +1,13 @@
 package dadm.hsingh.quotationshake.ui.newquotation
 
+import android.net.http.NetworkException
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.RequiresExtension
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,11 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentNewQuotationBinding
 import dadm.hsingh.quotationshake.domain.model.Quotation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeoutException
 
 @AndroidEntryPoint
 class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProvider {
@@ -25,6 +30,7 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
 
     private val viewModel: NewQuotationViewModel by viewModels()
 
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentNewQuotationBinding.bind(view)
@@ -41,6 +47,22 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.showFavouriteIcon.collect { favouriteIcon ->
                     binding.floatingActionButton.isVisible = favouriteIcon
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.error.collect { error ->
+                    if(error != null) {
+                        val message = when (error) {
+                            is NetworkException -> getString(R.string.error_network)
+                            is TimeoutException -> getString(R.string.error_timeout)
+                            else -> getString(R.string.error_unknown)
+                        }
+                        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+                        viewModel.resetError()
+                    }
                 }
             }
         }

@@ -18,4 +18,7 @@
     <string name="delete_all_quotation">Delete all quotation</string>
     <string name="developer">Developer picture</string>
     <string name="add_favourite_button">Button to add favourite quotation</string>
+    <string name="error_network">A network error has occurred.</string>
+    <string name="error_unknown">Unknown error has occurred.</string>
+    <string name="error_timeout">A timeout error has occurred.</string>
 </resources>

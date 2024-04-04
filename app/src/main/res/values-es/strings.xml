@@ -19,4 +19,7 @@
     <string name="delete_all_dialog_negative_button">No</string>
     <string name="delete_all_dialog">Dialogo de eliminicacion de todas las citas</string>
     <string name="delete_all_quotation">Elimina todas las citas</string>
+    <string name="error_network">Ha ocurrido un error de red.</string>
+    <string name="error_unknown">Ha ocurrido un error desconocido.</string>
+    <string name="error_timeout">Ha ocurrido un error de tiempo de respuesta.</string>
 </resources>
