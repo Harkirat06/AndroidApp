@@ -12,9 +12,9 @@ import kotlin.random.Random
 class NewQuotationDataSourceImpl @Inject constructor(private val retrofit: Retrofit) : NewQuotationDataSource {
     private val retrofitQuotationService = retrofit.create(NewQuotationRetrofit::class.java)
 
-    override suspend fun getQuotation(): Response<RemoteQuotationDto> {
+    override suspend fun getQuotation(lenguaje: String): Response<RemoteQuotationDto> {
         return try {
-            retrofitQuotationService.getQuotation()
+            retrofitQuotationService.getQuotation(lenguaje)
         } catch (e: Exception) {
             Response.error(
                 400, // Could be any other code and text, because we are not using it
