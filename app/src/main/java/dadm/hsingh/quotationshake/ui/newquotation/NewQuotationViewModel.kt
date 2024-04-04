@@ -3,11 +3,14 @@ package dadm.hsingh.quotationshake.ui.newquotation
 
 import androidx.lifecycle.ViewModel
 import dadm.hsingh.quotationshake.domain.model.Quotation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class NewQuotationViewModel : ViewModel() {
+@HiltViewModel
+class NewQuotationViewModel @Inject constructor() : ViewModel() {
 
     private val _userName = MutableStateFlow(getUserName())
     val userNameFlow = _userName.asStateFlow()

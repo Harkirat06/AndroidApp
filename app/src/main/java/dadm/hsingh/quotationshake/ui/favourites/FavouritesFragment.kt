@@ -21,8 +21,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentFavouritesBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class FavouritesFragment : Fragment(R.layout.fragment_favourites), MenuProvider {
     private var _binding: FragmentFavouritesBinding? = null
     private val binding get() = _binding!!

@@ -14,8 +14,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationBarView
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MenuProvider {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {

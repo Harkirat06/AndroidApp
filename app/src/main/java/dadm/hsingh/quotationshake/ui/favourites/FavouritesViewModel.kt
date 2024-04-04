@@ -3,14 +3,17 @@ package dadm.hsingh.quotationshake.ui.favourites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dadm.hsingh.quotationshake.domain.model.Quotation
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class FavouritesViewModel : ViewModel() {
+@HiltViewModel
+class FavouritesViewModel @Inject constructor() : ViewModel() {
     private val _favoriteQuotations = MutableStateFlow<List<Quotation>>(emptyList())
     val favoriteQuotations: StateFlow<List<Quotation>> = _favoriteQuotations
 

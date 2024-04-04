@@ -15,8 +15,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.databinding.FragmentNewQuotationBinding
 import dadm.hsingh.quotationshake.domain.model.Quotation
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProvider {
     private var _binding: FragmentNewQuotationBinding? = null
     private val binding get() = _binding!!

@@ -8,7 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.appcompat.app.AlertDialog
 import dadm.hsingh.quotationshake.R
 import dadm.hsingh.quotationshake.ui.favourites.FavouritesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DeleteAllDialogFragment : DialogFragment() {
 
     private val viewModel: FavouritesViewModel by activityViewModels()
