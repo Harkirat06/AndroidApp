@@ -40,7 +40,6 @@ class NewQuotationViewModel @Inject constructor(
     private val _showIcon = MutableStateFlow<Boolean>(false)
     val showIcon = _showIcon.asStateFlow()
 
-
     private val _error = MutableStateFlow<Throwable?>(null)
     val error = _error.asStateFlow()
 
@@ -61,7 +60,9 @@ class NewQuotationViewModel @Inject constructor(
         return viewModelScope.launch {
             repository.getNewQuotation().fold(
                 onSuccess = { quotation ->
-                    _quotation.value = quotation
+                    _quotation.update {
+                        quotation
+                    }
                     _showIcon.update {
                         false
                     }

@@ -46,6 +46,14 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.quotation.collect { quotation ->
+                    updateQuotation(quotation)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isAddToFavouritesVisible.collect { favouriteIcon ->
                     binding.floatingActionButton.isVisible = favouriteIcon
                 }
@@ -73,7 +81,6 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getNewQuotation()
-            updateQuotation(viewModel.quotation.value)
         }
 
         binding.floatingActionButton.setOnClickListener{
