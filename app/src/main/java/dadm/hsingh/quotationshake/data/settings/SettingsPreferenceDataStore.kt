@@ -14,14 +14,21 @@ class SettingsPreferenceDataStore @Inject constructor(
     override fun putString(key: String, value: String?) {
         if(value != null){
             CoroutineScope(Dispatchers.IO).launch {
-                settingsRepository.setUserName(value)
+                when (key) {
+                    "username" -> settingsRepository.setUserName(value)
+                    "language" -> settingsRepository.setLanguage(value)
+                }
             }
         }
     }
 
     override fun getString(key: String, defValue: String?): String {
         return runBlocking(Dispatchers.IO) {
-                settingsRepository.getUserNameSnapshot()
+            when (key) {
+                "username" -> settingsRepository.getUserNameSnapshot()
+                "language" -> settingsRepository.getLanguageSnapshot()
+                else -> defValue ?: ""
+            }
         }
     }
 }
