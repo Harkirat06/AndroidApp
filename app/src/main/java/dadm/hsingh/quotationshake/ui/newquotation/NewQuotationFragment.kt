@@ -46,7 +46,7 @@ class NewQuotationFragment : Fragment(R.layout.fragment_new_quotation), MenuProv
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.showFavouriteIcon.collect { favouriteIcon ->
+                viewModel.isAddToFavouritesVisible.collect { favouriteIcon ->
                     binding.floatingActionButton.isVisible = favouriteIcon
                 }
             }

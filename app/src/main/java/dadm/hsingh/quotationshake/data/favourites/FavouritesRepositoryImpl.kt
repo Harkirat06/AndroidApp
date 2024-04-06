@@ -23,8 +23,8 @@ class FavouritesRepositoryImpl @Inject constructor(
         return dataSource.getAllQuotations().map { list -> list.map { it.toDomain() } }
     }
 
-    override fun getQuotationById(id: String): Flow<Quotation> {
-        return dataSource.getQuotationById(id).map { it.toDomain() }
+    override fun getQuotationById(id: String): Flow<Quotation?> {
+        return dataSource.getQuotationById(id).map { it?.toDomain() }
     }
 
     override suspend fun deleteAllQuotations() {

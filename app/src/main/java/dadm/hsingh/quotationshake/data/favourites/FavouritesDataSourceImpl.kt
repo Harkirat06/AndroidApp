@@ -17,7 +17,7 @@ class FavouritesDataSourceImpl @Inject constructor(private val favouritesDao: Fa
         return favouritesDao.getAllQuotations()
     }
 
-    override fun getQuotationById(id: String): Flow<DatabaseQuotationDto> {
+    override fun getQuotationById(id: String): Flow<DatabaseQuotationDto?> {
         return favouritesDao.getQuotationById(id)
     }
 
