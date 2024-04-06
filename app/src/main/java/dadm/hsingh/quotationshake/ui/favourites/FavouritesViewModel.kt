@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,30 +32,18 @@ class FavouritesViewModel @Inject constructor(
         initialValue = true
     )
 
-    private fun getFavoriteQuotations(): List<Quotation> {
-        val quotations = mutableListOf<Quotation>()
-        quotations.add(Quotation("19", "La imaginación es más importante que el conocimiento.", "Albert Einstein"))
-        quotations.add(Quotation("20", "Cita anónima", "Anonymous"))
-        quotations.addAll((1..18).map { Quotation(it.toString(), "Cita aleatoria número $it", "Autor aleatorio $it") })
-        return quotations
-    }
-
 
     fun deleteAllQuotations(){
-        /*
-        _favoriteQuotations.update{
-            emptyList()
+        viewModelScope.launch {
+            favouritesRepository.deleteAllQuotations()
         }
-         */
     }
+
     fun deleteQuotationAtPosition(position: Int) {
-        /*
-        val currentQuotations = _favoriteQuotations.value.toMutableList()
-        val newList = currentQuotations.minus(currentQuotations.elementAt(position))
-        _favoriteQuotations.update {
-            newList
+        viewModelScope.launch {
+            val quotationToDelete = favoriteQuotations.value[position]
+            favouritesRepository.deleteQuotation(quotationToDelete)
         }
-         */
     }
 
 }
