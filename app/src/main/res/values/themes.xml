@@ -10,6 +10,14 @@
             @style/ThemeOverlay.App.FloatingActionButton
         </item>
     </style>
+    <style name="ThemeOverlay.App.MaterialCardView" parent="">
+        <item name="materialCardViewStyle">@style/Style.App.MaterialCardView</item>
+    </style>
+
+    <style name="Style.App.MaterialCardView" parent="">
+        <item name="cardBackgroundColor">@color/md_theme_tertiaryContainer</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
     <style name="Base.Theme.QuotationShake" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="floatingActionButtonStyle">
